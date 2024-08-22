@@ -8,13 +8,13 @@ const Input = () => {
         <input
           className="searchInput"
           type="text"
-          placeholder="Search something"
+          placeholder="Any other symptoms?"
         />
         <button className="searchButton">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="36"
-            height="36"
+            width="29"
+            height="29"
             viewBox="0 0 29 29"
             fill="none"
           >
@@ -78,28 +78,34 @@ const Input = () => {
           </svg>
         </button>
       </div>
+      <button className="submitButton">Submit</button>
     </StyledWrapper>
   );
 };
 
 const StyledWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Full viewport height for vertical centering */
+  
   .searchBox {
     display: flex;
-    max-width: 300px; /* Increased width */
     align-items: center;
-    justify-content: space-between;
-    gap: 10px; /* Increased gap */
     background: #2f3640;
     border-radius: 50px;
     position: relative;
+    max-width: 400px; /* Adjust as needed */
+    width: 100%; /* Full width of parent container */
   }
 
   .searchButton {
     color: white;
     position: absolute;
-    right: 10px; /* Increased right margin */
-    width: 60px; /* Increased size */
-    height: 60px; /* Increased size */
+    right: 8px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background: var(--gradient-2, linear-gradient(90deg, #2AF598 0%, #009EFD 100%));
     border: 0;
@@ -111,8 +117,8 @@ const StyledWrapper = styled.div`
   .searchButton:hover {
     color: #fff;
     background-color: #1A1A1A;
-    box-shadow: rgba(0, 0, 0, 0.5) 0 12px 24px; /* Increased shadow */
-    transform: translateY(-4px); /* Increased hover effect */
+    box-shadow: rgba(0, 0, 0, 0.5) 0 10px 20px;
+    transform: translateY(-3px);
   }
 
   .searchButton:active {
@@ -125,8 +131,25 @@ const StyledWrapper = styled.div`
     background: none;
     outline: none;
     color: white;
-    font-size: 18px; /* Increased font size */
-    padding: 24px 60px 24px 30px; /* Adjusted padding for larger input */
+    font-size: 20px; /* Increase font size */
+    padding: 15px 50px 15px 20px; /* Adjust padding as needed */
+    width: 100%; /* Full width of parent container */
+  }
+
+  .submitButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background: linear-gradient(to right, #8e2de2, #4a00e0);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .submitButton:hover {
+    background-color: #6a00d2;
   }
 `;
 
