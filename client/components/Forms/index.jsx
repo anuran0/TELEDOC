@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import Button from "../Button";
+
 
 const Input = () => {
   return (
@@ -78,12 +80,12 @@ const Input = () => {
           </svg>
         </button>
       </div>
-      <button className="submitButton">Submit</button>
+      <Button/>
     </StyledWrapper>
   );
 };
 
-const StyledWrapper = styled.div`
+export const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center; /* Center horizontally */

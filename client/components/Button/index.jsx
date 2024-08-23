@@ -1,7 +1,11 @@
-const ButtonClick = () => {
+import { StyledWrapper } from "../Forms"
+
+const Button = () => {
   return (
-    <div>ButtonClick</div>
+    <StyledWrapper>
+      <button className="submitButton">Submit</button>
+    </StyledWrapper>
   )
 }
 
-export default ButtonClick
+export default Button

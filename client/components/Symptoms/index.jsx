@@ -28,19 +28,6 @@ const Symptoms = () => {
     );
   };
 
-  const handleSubmit = () => {
-    fetch('http://localhost:5000', {  // Update URL to your backend
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ symptoms: selectedSymptoms }),
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));
-  };
-
   return (
     <>
       <div className="d-flex justify-content-center mt-3">
@@ -58,9 +45,6 @@ const Symptoms = () => {
           </div>
         ))}
       </div>
-      <button onClick={handleSubmit} className="btn btn-primary mt-3">
-        Submit
-      </button>
     </>
   );
 };
