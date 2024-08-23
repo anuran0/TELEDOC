@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from langchain.prompts import ChatPromptTemplate
@@ -10,54 +11,123 @@ import os
 
 app = FastAPI()
 
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "*"
+    ],  # Allows all origins, you can restrict this to specific origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allows all headers
+)
+
 # Load environment variables
 load_dotenv()
 
 # Load the AI model
 model = ChatGoogleGenerativeAI(model="gemini-1.5-flash")
 
+
 # Function to load NLP model and matcher
 def load_nlp_model():
     nlp = spacy.load("en_core_web_sm")
     matcher = Matcher(nlp.vocab)
-    pattern1 = [{"LOWER": {"IN": ["have", "experiencing", "feeling", "suffering", "from"]}},
-                {"POS": "DET", "OP": "?"},
-                {"POS": "ADJ", "OP": "*"},
-                {"POS": "NOUN"}]
-    pattern2 = [{"POS": "PRON", "OP": "?"},
-                {"POS": "NOUN"},
-                {"LEMMA": {"IN": ["hurt", "ache", "pain", "upset", "sore", "uncomfortable"]}}]
+    pattern1 = [
+        {"LOWER": {"IN": ["have", "experiencing", "feeling", "suffering", "from"]}},
+        {"POS": "DET", "OP": "?"},
+        {"POS": "ADJ", "OP": "*"},
+        {"POS": "NOUN"},
+    ]
+    pattern2 = [
+        {"POS": "PRON", "OP": "?"},
+        {"POS": "NOUN"},
+        {"LEMMA": {"IN": ["hurt", "ache", "pain", "upset", "sore", "uncomfortable"]}},
+    ]
     matcher.add("SYMPTOM", [pattern1, pattern2])
     return nlp, matcher
 
+
 # Load Spacy NLP model and matcher
 nlp, matcher = load_nlp_model()
+
 
 # Pydantic model for request body
 class SymptomsRequest(BaseModel):
     symptoms_description: str
 
-# Function to extract symptoms from text
+
 def extract_symptoms(text):
     symptom_indicators = [
-        r'experiencing', r'feeling', r'suffering from', r'have', r'has',
-        r'complaining of', r'troubled by', r'bothered by'
+        r"experiencing",
+        r"feeling",
+        r"suffering from",
+        r"have",
+        r"has",
+        r"complaining of",
+        r"troubled by",
+        r"bothered by",
     ]
-    pattern = r'\b(' + '|'.join(symptom_indicators) + r')\s+(.+?)(\.|\band\b|$)'
-    matches = re.findall(pattern, text.lower())
-    symptoms = [match[1].strip() for match in matches]
-    body_parts = [
-        r'head', r'neck', r'throat', r'chest', r'stomach', r'back',
-        r'arm', r'leg', r'foot', r'hand', r'eye', r'ear', r'nose'
+
+    common_symptoms = [
+        "Fever",
+        "Cough",
+        "Headache",
+        "Fatigue",
+        "Shortness of Breath",
+        "Chest Pain",
+        "Dizziness",
+        "Nausea",
+        "Abdominal Pain",
+        "Joint Pain",
+        "Rash",
+        "Swollen Lymph Nodes",
+        "Sore Throat",
+        "Vomiting",
+        "Diarrhea",
+        "Constipation",
+        "Back Pain",
+        "Frequent Urination",
+        "Night Sweats",
+        "Blurred Vision",
+        "Confusion",
+        "Muscle Weakness",
+        "Paleness",
+        "Tingling or Numbness",
+        "Excessive Thirst",
+        "Hair Loss",
+        "Heart Palpitations",
+        "Loss of Appetite",
+        "Difficulty Swallowing",
+        "Dry Skin",
+        "Hearing Loss",
+        "Swollen Feet",
+        "Yellowing of Skin",
+        "Red Eyes",
+        "Blood in Stool",
+        "Blood in Urine",
+        "Dry Mouth",
+        "Chronic Cough",
+        "Sudden Weight Gain",
+        "Loss of Balance",
+        "Cold Hands/Feet",
+        "Nightmares",
+        "Sleepiness During Daytime",
+        "Leg Cramps",
+        "Bloating",
+        "Hot Flashes",
+        "Persistent Hiccups",
+        "Unexplained Bruising",
+        "Itchy Skin",
     ]
-    condition_words = [r'ache', r'pain', r'hurt', r'sore', r'swollen', r'rash']
 
-    body_part_pattern = r'\b(' + '|'.join(body_parts) + r')\s+(' + '|'.join(condition_words) + r')\b'
-    body_part_matches = re.findall(body_part_pattern, text.lower())
+    symptoms_pattern = r"(?i)\b(?:{})(?=\s|,|$)".format(
+        "|".join(re.escape(symptom) for symptom in common_symptoms)
+    )
+    standalone_matches = re.findall(symptoms_pattern, text)
+    symptoms = list(set(standalone_matches))
+    return symptoms
 
-    symptoms.extend([' '.join(match) for match in body_part_matches])
-
-    return list(set(symptoms))
 
 # Function to get AI Doctor response
 def get_ai_doctor_response(model, symptoms):
@@ -75,15 +145,21 @@ don't write anything outside the given template. provide the proper diagnostic a
     result = model.invoke(prompt)
     return result.content
 
+
 # FastAPI endpoint to handle symptom input and return diagnosis
 @app.post("/diagnose")
 async def diagnose_symptoms(request: SymptomsRequest):
     symptoms = extract_symptoms(request.symptoms_description)
     if not symptoms:
-        raise HTTPException(status_code=400, detail="No symptoms detected in the input.")
+        raise HTTPException(
+            status_code=400, detail="No symptoms detected in the input."
+        )
     diagnosis = get_ai_doctor_response(model, symptoms)
     return {"diagnosis": diagnosis}
 
+
 @app.get("/")
 async def root():
-    return {"message": "Welcome to the AI Doctor Diagnosis API. Use the /diagnose endpoint to get a diagnosis."}
+    return {
+        "message": "Welcome to the AI Doctor Diagnosis API. Use the /diagnose endpoint to get a diagnosis."
+    }

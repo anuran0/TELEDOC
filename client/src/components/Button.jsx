@@ -6,7 +6,7 @@ const Button = () => {
     <StyledWrapper>
       <button>
         {" "}
-        <span>Button</span>
+        <span>Submit</span>
       </button>
     </StyledWrapper>
   );

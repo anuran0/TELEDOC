@@ -18,7 +18,7 @@ const symptomsList = ['Fever', 'Cough', 'Headache', 'Fatigue', 'Shortness of Bre
 ];
 
 function SymptomForm({ onDiagnosis }) {
-  const [selectedSymptoms, setSelectedSymptoms] = useState([]);
+  const [selectedSymptoms, setSelectedSymptoms] = useState(["I have"]);
   const [customSymptom, setCustomSymptom] = useState('');
 
   const handleCheckboxChange = (symptom) => {
@@ -32,16 +32,22 @@ function SymptomForm({ onDiagnosis }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const symptoms = [...selectedSymptoms, customSymptom].filter(Boolean).join(', ');
-
     const response = await fetch('http://127.0.0.1:8000/diagnose', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ symptoms })
+      body: JSON.stringify({ symptoms_description: symptoms })  // Correct format
     });
-
+  
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Error:', errorData);
+      return;
+    }
+  
     const data = await response.json();
+    console.log(data)
     onDiagnosis(data.diagnosis);
   };
 
