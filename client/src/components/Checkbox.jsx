@@ -1,61 +1,76 @@
-import React from "react";
-import styled from "styled-components";
+// Checkbox.js
+import React from 'react';
+import styled from 'styled-components';
 
 const Checkbox = () => {
   return (
     <StyledWrapper>
-      <div className="content">
-        <label className="checkBox">
-          <input id="ch1" type="checkbox" />
-          <div className="transition" />
-        </label>
-      </div>
+      <label className="container">
+        <input type="checkbox" />
+        <div className="checkmark" />
+        <span className="label-text">Symptom</span>
+      </label>
     </StyledWrapper>
   );
 };
 
 const StyledWrapper = styled.div`
-  .clear {
-  clear: both;
-}
+  .container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    user-select: none;
+  }
 
-.checkBox {
-  display: block;
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  border: 3px solid rgba(255, 255, 255, 0);
-  border-radius: 10px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0px 0px 0px 2px #fff;
-}
+  .container input {
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    position: absolute;
+  }
 
-.checkBox div {
-  width: 60px;
-  height: 60px;
-  background-color: #fff;
-  top: -52px;
-  left: -52px;
-  position: absolute;
-  transform: rotateZ(45deg);
-  z-index: 100;
-}
+  .checkmark {
+    --clr: #007ea7;
+    position: relative;
+    height: 1.3em;
+    width: 1.3em;
+    background-color: #ccc;
+    border-radius: 0.5rem;
+    transition: background-color 300ms, transform 300ms;
+  }
 
-.checkBox input[type=checkbox]:checked + div {
-  left: -10px;
-  top: -10px;
-}
+  .container input:checked ~ .checkmark {
+    background-color: var(--clr);
+    transform: scale(1.1);
+  }
 
-.checkBox input[type=checkbox] {
-  position: absolute;
-  left: 50px;
-  visibility: hidden;
-}
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
 
-.transition {
-  transition: 300ms ease;
-}
+  .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  .checkmark:after {
+    left: 0.45em;
+    top: 0.25em;
+    width: 0.25em;
+    height: 0.5em;
+    border: solid ${({ theme }) => theme.colors.white.DEFAULT};
+    border-width: 0 0.15em 0.15em 0;
+    transform: rotate(45deg);
+  }
+
+  .label-text {
+    color: ${({ theme }) => theme.colors.white.DEFAULT};
+    margin-left: 10px;
+  }
 `;
 
 export default Checkbox;

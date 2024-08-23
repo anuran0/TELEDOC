@@ -75,3 +75,84 @@ input[type="text"] {
 .diagnosis-result h2 {
   color: #66ff66;
 }
+
+.About {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card {
+  background-color: #414548;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.description-card h2 {
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+.team-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.team-card {
+  background-color: #4f5254;
+  border-radius: 8px;
+  padding: 20px;
+  width: 48%;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.team-card img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.team-card h3 {
+  margin-bottom: 5px;
+}
+
+.team-card p {
+  color: #2d2e30;
+}
+
+.diagnosis-result {
+  margin-top: 2rem;
+}
+
+.diagnosis-card {
+  background-color: #1e1e1e;
+  border: 1px solid #39ff14;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(57, 255, 20, 0.1);
+}
+
+.diagnosis-content {
+  color: #39ff14;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.disclaimer {
+  font-size: 0.9rem;
+  color: #cccccc;
+  border-top: 1px solid #39ff14;
+  padding-top: 1rem;
+}
+
+h2 {
+  color: #39ff14;
+  margin-bottom: 1rem;
+}

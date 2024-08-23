@@ -1,0 +1,37 @@
+/* src/pages/About.css */
+
+.about-container {
+    background-color: #00171f; /* Rich black background */
+    color: #ffffff; /* White text */
+    padding: 40px;
+    text-align: center;
+    min-height: 100vh;
+  }
+  
+  .about-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #007ea7; /* Cerulean for headings */
+  }
+  
+  .cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Space between cards */
+    margin-top: 20px;
+  }
+  
+  .cards-container .card {
+    width: 300px; /* Fixed width for cards */
+    margin: 0 auto; /* Center align cards horizontally */
+  }
+  
+  /* Add media queries for responsiveness */
+  @media (max-width: 768px) {
+    .cards-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  
