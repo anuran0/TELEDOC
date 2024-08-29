@@ -53,7 +53,7 @@ function SymptomForm({ onDiagnosis }) {
 
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <h2>Select Symptoms</h2>
+      <h2>Select the symptoms</h2>
       <CheckboxGrid>
         {symptomsList.map((symptom, index) => (
           <CheckboxItem key={index}>
@@ -67,7 +67,7 @@ function SymptomForm({ onDiagnosis }) {
         ))}
       </CheckboxGrid>
       <div>
-        <label htmlFor="custom-symptom">Custom Symptom:</label>
+        <label htmlFor="custom-symptom"><b>Any other discomfort?</b></label>
         <input
           type="text"
           id="custom-symptom"
@@ -83,7 +83,7 @@ function SymptomForm({ onDiagnosis }) {
 }
 
 const CheckboxInput = styled.input`
-  accent-color: #0B6E4F;  /* Adjust checkbox color for better visibility */
+  accent-color: #ffffff;  /* Adjust checkbox color for better visibility */
   margin-right: 10px;
   cursor: pointer;
 `;
@@ -92,14 +92,14 @@ const StyledForm = styled.form`
   background-color: #1e1e1e;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px #ffffff;
   margin: 20px;
   width: 100%; /* Full width to use available space */
   max-width: 1200px; /* Set a maximum width for the form */
   margin: 0 auto; /* Center the form horizontally */
   
   h2 {
-    color: #66ff66;
+    color: #ffffff;
     text-align: center;
   }
 
@@ -111,10 +111,11 @@ const StyledForm = styled.form`
 
   input[type="text"] {
     padding: 8px;
-    width: 100%;
+    width: 80%;
+    margin-left:10%;
     background-color: #2e2e2e;
-    border: 2px solid #66ff66;
-    border-radius: 8px;
+    border: 2px solid #ffffff;
+    border-radius: 20px;
     color: #ffffff;
   }
 `;
@@ -134,7 +135,7 @@ const CheckboxItem = styled.div`
   border-radius: 8px;
   color: #ffffff;
   font-size: 1rem;
-  border: 1px solid #66ff66;
+  border: 1px solid #ffffff;
 `;
 
 const ButtonWrapper = styled.div`
