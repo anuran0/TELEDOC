@@ -17,17 +17,17 @@ function About() {
       <h2>Our Team</h2>
       <div className="team-section">
         <div className="team-card">
-          <img src='../assets/anuran.jpg' alt="Team Member 1" />
+          <img src='..\src\assets\anuran.jpg' alt="Team Member 1" />
           <h3>Anuran De</h3>
         </div>
         <div className="team-card">
-          <img src='' alt="Team Member 2" />
+          <img src='..\src\assets\niru.jpg' alt="Team Member 2" />
           <h3>Nirajana Pal</h3>
         </div>
       </div>
 
       <p>
-        Our team of doctors, engineers, and AI experts works tirelessly to make healthcare more accessible and efficient.
+       
       </p>
     </div>
   );
