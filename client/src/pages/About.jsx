@@ -6,11 +6,9 @@ function About() {
       
       <div className="card description-card">
         <h2>Our Mission</h2>
-        <p>
-          With Teledocs, we are revolutionizing healthcare by providing in-home consultations with cutting-edge AI and deep learning algorithms to deliver individualized, real-time diagnostic help. With Teledocs, you may get in-depth medical advice based on your symptoms.
-        </p>
-        <p>
+        <p><b>
           Our goal is to provide convenient access to basic healthcare through a safe and easy-to-use interface and fill in the gap of unavailability of primary healthcare consultations in rural areas.
+          </b>
         </p>
       </div>
 
