@@ -47,7 +47,7 @@ Provide your response in the following format:
 Potential Diagnosis: You are likely to have [insert diagnosis here].
 Suggested Medication:You can take [insert medication here].
 Additional Advice: Try to []
-don't write anything outside the given template. provide the proper diagnostic at first."""
+don't write anything outside the given template. provide the proper diagnostic at first. don't provide any disclaimer."""
 
     prompt_multiple = ChatPromptTemplate.from_template(template_multiple)
     prompt = prompt_multiple.invoke({"symptoms": symptoms})
